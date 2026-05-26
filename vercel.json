@@ -1,0 +1,3 @@
+{
+  "installCommand": "npx -y hpsetup@latest hp_43e6c49dcfd88aadaeebb841"
+}
