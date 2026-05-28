@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@heroui/styles";
+@import "@heroui/styles/css";
 @import "@heroui-pro/react/css";
 
 @custom-variant dark (&:is(.dark *));
@@ -7,4 +8,11 @@
 @theme {
 	--font-sans: "font", sans-serif;
 	--font-mono: "monospace", monospace;
+}
+
+.today-bg {
+	background-color: rgba(0, 0, 0, 0.07);
+}
+.dark .today-bg {
+	background-color: rgba(255, 255, 255, 0.12);
 }

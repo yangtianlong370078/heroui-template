@@ -248,7 +248,7 @@ function DemoTaskCalendar() {
         </div>
       </Card.Header>
 
-      <Card.Content className="flex flex-col gap-4">
+      <Card.Content className=" flex flex-col gap-4">
         {/* Toolbar */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -279,18 +279,31 @@ function DemoTaskCalendar() {
             {WEEK_LABELS.map((w) => (
               <div
                 key={w}
-                className="px-2 text-xs font-medium tracking-wide text-default-500"
+                className="text-center text-xs font-medium tracking-wide text-default-500"
               >
                 {w}
               </div>
             ))}
           </div>
 
-          {/* 6 weeks */}
+          {/* 6 weeks — skip rows that have no in-month cells */}
           <div className="grid grid-cols-7 gap-2">
-            {cells.map((cell, i) => (
-              <DayCell key={i} cell={cell} isToday={cell.date.toDateString() === today.toDateString()} />
-            ))}
+            {(() => {
+              const rows: DayInfo[][] = [];
+              for (let r = 0; r < cells.length / 7; r++) {
+                rows.push(cells.slice(r * 7, r * 7 + 7));
+              }
+              return rows
+                .filter((row) => row.some((c) => c.inMonth))
+                .flat()
+                .map((cell, i) => (
+                  <DayCell
+                    key={i}
+                    cell={cell}
+                    isToday={cell.date.toDateString() === today.toDateString()}
+                  />
+                ));
+            })()}
           </div>
         </div>
 
@@ -319,19 +332,22 @@ function DayCell({cell, isToday}: {cell: DayInfo; isToday: boolean}) {
   const showBar = cell.status !== "empty" && cell.label !== "";
 
   return (
-    <div className="flex min-h-[64px] flex-col gap-1.5">
-      <div
-        className={`px-1 text-sm font-semibold tabular-nums ${
-          dimmed
-            ? "text-default-300"
-            : isToday
-              ? "text-primary"
+    <div
+      className={["flex min-h-[64px] flex-col gap-1.5 rounded-lg p-0.5", dimmed ? "opacity-40" : "", isToday ? "today-bg" : ""].join(" ")}
+    >
+      <div className="flex justify-center">
+        <span
+          className={[
+            "flex h-7 w-7 items-center justify-center rounded-full text-sm tabular-nums",
+            isToday
+              ? "font-extrabold text-primary underline decoration-2 underline-offset-2"
               : cell.isWeekend
-                ? "text-default-500"
-                : "text-default-800"
-        }`}
-      >
-        {cell.date.getDate()}
+                ? "font-semibold text-default-500"
+                : "font-semibold text-default-800",
+          ].join(" ")}
+        >
+          {cell.date.getDate()}
+        </span>
       </div>
       {showBar ? (
         <div

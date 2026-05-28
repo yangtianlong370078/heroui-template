@@ -7,7 +7,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "eslint --fix"
+		"lint": "eslint --fix",
+		"postinstall": "node scripts/patch-react-aria.cjs"
 	},
 	"dependencies": {
 		"@gravity-ui/icons": "^2.18.0",
@@ -17,7 +18,9 @@
 		"@number-flow/react": "^0.6.0",
 		"clsx": "2.1.1",
 		"embla-carousel": "^8.6.0",
+		"embla-carousel-autoplay": "^8.6.0",
 		"embla-carousel-react": "^8.6.0",
+		"emojibase-data": "^17.0.0",
 		"intl-messageformat": "10.7.16",
 		"motion": "^12.40.0",
 		"next": "16.2.6",
