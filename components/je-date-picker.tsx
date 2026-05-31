@@ -1,6 +1,6 @@
 "use client";
 
-import {useMemo, useState} from "react";
+import {ReactNode, useMemo, useState} from "react";
 import {Button, Popover} from "@heroui/react";
 
 export interface MonthValue {
@@ -27,6 +27,8 @@ interface JeDatePickerProps {
   /** Label shown on the trigger button. Receives the current value. */
   formatTrigger?: (v: MonthValue) => string;
   className?: string;
+  /** Custom trigger element. When provided, replaces the default button. */
+  children?: ReactNode;
 }
 
 const DEFAULT_TRIGGER_FORMAT = (v: MonthValue) => `${v.year}年${v.month}月`;
@@ -53,6 +55,7 @@ export default function JeDatePicker({
   maxYear = 2100,
   formatTrigger = DEFAULT_TRIGGER_FORMAT,
   className,
+  children,
 }: JeDatePickerProps) {
   const today = useMemo(() => new Date(), []);
   const initial: MonthValue =
@@ -105,9 +108,11 @@ export default function JeDatePicker({
   return (
     <Popover isOpen={open} onOpenChange={handleOpenChange}>
       <Popover.Trigger>
-        <Button className={className} size="sm" variant="flat">
-          {formatTrigger(current)}
-        </Button>
+        {children ?? (
+          <Button className={className} size="sm" variant="flat">
+            {formatTrigger(current)}
+          </Button>
+        )}
       </Popover.Trigger>
       <Popover.Content className="w-[280px] p-0">
         <Popover.Dialog className="flex flex-col gap-0 p-0">

@@ -9,9 +9,9 @@ import {ChartTooltip, RadialChart} from "@heroui-pro/react";
 const CHART_COLORS = ["var(--chart-4)", "var(--chart-3)", "var(--chart-2)", "var(--chart-1)"];
 
 const storageData = [
-  {fill: "var(--chart-4)", name: "Documents", value: 42},
-  {fill: "var(--chart-3)", name: "Media", value: 28},
-  {fill: "var(--chart-2)", name: "System", value: 18},
+  {fill: "var(--chart-4)", name: "Documents", value: 11},
+  {fill: "var(--chart-3)", name: "Media", value: 20},
+  {fill: "var(--chart-2)", name: "System", value: 100},
 ];
 
 interface RadialTooltipProps {

@@ -19,7 +19,7 @@ const sampleStats: MonthCompletion[] = [
   {year: 2025, month: 11, percent: 0},
   {year: 2025, month: 12, percent: 1},
 ];
-
+ 
 export default function JeDatePickerDemo() {
   const [value, setValue] = useState<MonthValue>({year: 2025, month: 1});
 

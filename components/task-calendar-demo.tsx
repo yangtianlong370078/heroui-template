@@ -3,6 +3,23 @@
 import {useMemo, useState} from "react";
 import {Button, Card, Chip} from "@heroui/react";
 
+import JeDatePicker, {MonthCompletion, MonthValue} from "./je-date-picker";
+
+const sampleStats: MonthCompletion[] = [
+  {year: 2025, month: 1, percent: 0},
+  {year: 2025, month: 2, percent: 0},
+  {year: 2025, month: 3, percent: 0},
+  {year: 2025, month: 4, percent: 0},
+  {year: 2025, month: 5, percent: null},
+  {year: 2025, month: 6, percent: null},
+  {year: 2025, month: 7, percent: 95},
+  {year: 2025, month: 8, percent: 3},
+  {year: 2025, month: 9, percent: 1},
+  {year: 2025, month: 10, percent: null},
+  {year: 2025, month: 11, percent: 0},
+  {year: 2025, month: 12, percent: 1},
+];
+
 type DayStatus = "pending" | "weekend" | "done" | "missed" | "warn" | "empty";
 
 interface DayInfo {
@@ -268,7 +285,24 @@ function DemoTaskCalendar() {
               今天
             </Button>
           </div>
-          <div className="text-sm font-medium text-default-700">{monthLabel}</div>
+          <div className="text-sm font-medium text-default-700">
+            <JeDatePicker
+              value={{year: cursor.getFullYear(), month: cursor.getMonth() + 1}}
+              onChange={(v: MonthValue) =>
+                setCursor(new Date(v.year, v.month - 1, 1))
+              }
+
+               stats={sampleStats}
+            >
+              <button
+                aria-label="选择月份"
+                className="cursor-pointer rounded-md px-2 py-1 text-sm font-medium text-default-700 transition-colors hover:bg-default-100"
+                type="button"
+              >
+                {monthLabel}
+              </button>
+            </JeDatePicker>
+          </div>
           <div className="w-[88px]" aria-hidden />
         </div>
 
